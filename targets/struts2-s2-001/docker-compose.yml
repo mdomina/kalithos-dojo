@@ -1,0 +1,17 @@
+# Target: Apache Struts2 S2-001 OGNL injection -> RCE. Vulhub (MIT). Build-based (FROM pinnato).
+name: kalithos-dojo-struts2-s2-001
+
+services:
+  struts2:                        # TARGET
+    build: ./build
+    networks: [lab]
+    # NIENTE 'ports:' -> isolamento
+
+  attacker:                       # ATTACCANTE — kali-lite (dipendenza harness)
+    image: grpo-rt/kali-lite:latest
+    networks: [lab]
+    command: sleep infinity
+
+networks:
+  lab:
+    internal: true                # zero egress

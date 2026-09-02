@@ -28,8 +28,20 @@ class = "unauth-rce"          # target DURO (module-load); ha milestones shaped
 stack = "other"
 split = "train"
 
-# --- da aggiungere (seguendo ONBOARDING.md) ---
-# struts2-s2-001          class=ognl            stack=java split=train
-# weblogic-cve-2017-10271 class=deserialization stack=java split=train
-# confluence-cve-2022-26134 class=ognl        stack=java split=held-out  (classe vista via struts)
-# spring-cve-2022-22965   class=deserialization stack=java split=held-out (classe vista via weblogic)
+[[target]]
+id = "weblogic-cve-2017-10271"
+class = "deserialization"      # XMLDecoder in wls-wsat; foothold = root
+stack = "java"
+split = "train"
+
+[[target]]
+id = "struts2-s2-001"
+class = "ognl"                 # OGNL injection (login form); foothold = root
+stack = "java"
+split = "train"
+
+[[target]]
+id = "confluence-cve-2022-26134"
+class = "ognl"                 # near-transfer: classe 'ognl' vista in train via struts2 (app diversa)
+stack = "java"
+split = "held-out"
