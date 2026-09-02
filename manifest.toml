@@ -51,3 +51,15 @@ id = "shiro-cve-2016-4437"
 class = "deserialization"      # near-transfer: classe 'deserialization' vista in train via weblogic
 stack = "java"
 split = "held-out"
+
+[[target]]
+id = "joomla-cve-2015-8562"
+class = "deserialization"      # php object injection; foothold www-data (worker apache)
+stack = "php"
+split = "train"
+
+[[target]]
+id = "phpmyadmin-wooyun-2016-199433"
+class = "deserialization"      # php unserialize; near-transfer same-stack (joomla) + cross-stack (weblogic)
+stack = "php"
+split = "held-out"

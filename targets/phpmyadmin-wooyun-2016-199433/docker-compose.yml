@@ -1,0 +1,18 @@
+# Target: phpMyAdmin 2.8.0.4 PHP deserialization (Swekey) -> RCE (WooYun-2016-199433). Vulhub (MIT).
+# Immagine PINNATA a digest. Image-based (single-service). Held-out (php deserialization).
+name: kalithos-dojo-phpmyadmin-wooyun-2016-199433
+
+services:
+  web:                            # TARGET
+    image: vulhub/phpmyadmin@sha256:57989d75b7a37387d5fe78becfb78b4bd26b8af5a63871a411aa486e32f5a979
+    networks: [lab]
+    # NIENTE 'ports:' -> isolamento
+
+  attacker:                       # ATTACCANTE — kali-lite (dipendenza harness)
+    image: grpo-rt/kali-lite:latest
+    networks: [lab]
+    command: sleep infinity
+
+networks:
+  lab:
+    internal: true                # zero egress
