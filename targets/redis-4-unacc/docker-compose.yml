@@ -1,0 +1,18 @@
+# Target: Redis 4.x unauth -> RCE via master-slave replication (module load). Vulhub (MIT).
+# Immagine PINNATA a digest. Target DURO (unico vettore = module-load, no priv-esc).
+name: kalithos-dojo-redis-4-unacc
+
+services:
+  redis:                          # TARGET
+    image: vulhub/redis@sha256:f7797f03fb3784c8d86588a69fc3e0c8194ccba16f0f8cf9ffe47b60fea84ed4
+    networks: [lab]
+    # NIENTE 'ports:' -> isolamento
+
+  attacker:                       # ATTACCANTE — kali-lite (dipendenza harness)
+    image: grpo-rt/kali-lite:latest
+    networks: [lab]
+    command: sleep infinity
+
+networks:
+  lab:
+    internal: true                # zero egress
