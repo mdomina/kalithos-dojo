@@ -1,0 +1,18 @@
+# Target: ThinkPHP 5.0.20 RCE (unauth, un GET). Derivato da Vulhub thinkphp/5-rce (MIT).
+# Immagine PINNATA a digest per stabilità (immune a re-tag/rimozione upstream).
+name: kalithos-dojo-thinkphp-5-rce
+
+services:
+  web:                            # TARGET
+    image: vulhub/thinkphp@sha256:aa12db1b982c92cfd599bc982c1244a4f7d34997461398b1a239df079558d56c
+    networks: [lab]
+    # NIENTE 'ports:' -> isolamento
+
+  attacker:                       # ATTACCANTE — kali-lite (dipendenza harness)
+    image: grpo-rt/kali-lite:latest
+    networks: [lab]
+    command: sleep infinity
+
+networks:
+  lab:
+    internal: true                # zero egress
