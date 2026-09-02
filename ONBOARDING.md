@@ -27,9 +27,14 @@ gli step. Niente auto-generazione cieca: il `flag_user`/privilegio/solvibilità 
    👉 **La conferma DEFINITIVA di `flag_user` è il solve-gate (step 7)**: se un solve di riferimento
    legge la flag, l'utente è giusto. Il `ps` è solo un indizio.
 
-4. **`target.toml`** → scrivi la spec dichiarativa: `target_service`, `flag_path`, `flag_user`,
-   `max_turns`, `exec_timeout`, `health_cmd`, + `[classification]` (class/stack/split) +
-   `[provenance]` (source, image-digest, licenza).
+4. **`target.toml`** → scrivi la spec. Due parti:
+   - **`[vulhub]`** (`name/cve/app/path/tags/image`) → **si COPIA da `vulhub/environments.toml`**
+     (l'entry `[[environment]]` del target) → parte **auto-popolabile**, zero giudizio;
+   - **campi harness top-level** (`target_service`, `flag_path`, `flag_user`, `health_cmd`, …) +
+     **`[classification]`** (`class/stack/split`) → richiedono **giudizio umano** (flag_user
+     ispezionato allo step 3, split deciso da te). Solo QUESTI sono lavoro vero.
+
+   → L'onboarding veloce = macchina copia `[vulhub]`, **umano mette solo flag_user + split**, poi valida.
 
 5. **Milestone** (opz., raccomandato) → `milestones.py` con oracoli **evidence-based** per la classe
    (reward shaped, non binario). Es. RCE: "processo estraneo comparso".
