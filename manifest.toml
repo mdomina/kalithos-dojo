@@ -69,3 +69,9 @@ id = "activemq-cve-2016-3088"
 class = "upload-webshell"      # near-transfer: classe upload-webshell vista in train via tomcat (app diversa)
 stack = "java"
 split = "held-out"
+
+[[target]]
+id = "cacti-cve-2022-46169"
+class = "command-injection"    # near-transfer: classe command-injection vista in train via thinkphp (app diversa)
+stack = "php"
+split = "held-out"
