@@ -45,3 +45,9 @@ id = "confluence-cve-2022-26134"
 class = "ognl"                 # near-transfer: classe 'ognl' vista in train via struts2 (app diversa)
 stack = "java"
 split = "held-out"
+
+[[target]]
+id = "shiro-cve-2016-4437"
+class = "deserialization"      # near-transfer: classe 'deserialization' vista in train via weblogic
+stack = "java"
+split = "held-out"
