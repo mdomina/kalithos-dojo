@@ -1,0 +1,16 @@
+# Target Vulhub fastjson/1.2.83-rce (MIT). Immagine pinnata, no ports, rete lab internal.
+name: kalithos-dojo-fastjson-1-2-83-rce
+
+services:
+  web:
+    image: vulhub/fastjson@sha256:165820bfe57651483530bf9601598a738c9f18bb5ab40ec360da141d03bb274d
+    networks: [lab]
+
+  attacker:
+    image: grpo-rt/kali-lite:latest
+    networks: [lab]
+    command: sleep infinity
+
+networks:
+  lab:
+    internal: true

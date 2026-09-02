@@ -1,0 +1,16 @@
+# Target Vulhub jboss/JMXInvokerServlet-deserialization (MIT). Immagine pinnata, no ports, rete lab internal.
+name: kalithos-dojo-jboss-jmxinvokerservlet
+
+services:
+  jboss:
+    image: vulhub/jboss@sha256:1b91acd3e71e966f8bbeae7134dd1e2e183f4973955ae66defbc0abe8e572fec
+    networks: [lab]
+
+  attacker:
+    image: grpo-rt/kali-lite:latest
+    networks: [lab]
+    command: sleep infinity
+
+networks:
+  lab:
+    internal: true

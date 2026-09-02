@@ -1,0 +1,21 @@
+target_id        = "fastjson-1-2-24-rce"
+
+# --- harness ---
+target_service   = "web"
+attacker_service = "attacker"
+flag_path        = "/root/flag.txt"
+flag_user        = "root"          # ISPEZIONATO via /proc
+max_turns        = 40
+exec_timeout     = 60
+health_cmd       = "curl -s -o /dev/null -w '%{http_code}' --max-time 5 http://web:8090/ | grep -qE '200|30[0-9]|401|403'"
+
+[classification]
+class = "deserialization"
+stack = "java"
+split = "train"
+
+[vulhub]
+name  = "fastjson/1.2.24-rce"
+path  = "fastjson/1.2.24-rce"
+image = "vulhub/fastjson@sha256:4e61ce0bcf003d736b11e94fd9204b05e00827c021b6c09a3de9340856e4f158"
+license = "MIT (Vulhub)"

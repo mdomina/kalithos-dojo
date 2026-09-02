@@ -18,6 +18,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "IMPORTED.md"
+MANIFEST = ROOT / "manifest.toml"
 
 
 def collect() -> list[dict]:
@@ -77,17 +78,43 @@ def render(rows: list[dict]) -> str:
     return "\n".join(lines)
 
 
+def render_manifest(rows: list[dict]) -> str:
+    lines = [
+        "# Indice del range — classe / stack / split. La metrica del progetto è il success-rate",
+        "# su HELD-OUT (generalizzazione), non su train (memorizzazione).",
+        "# GENERATO da tools/inventory.py dai target.toml — non modificare a mano.",
+        "#",
+        '# split: "train" (usato per allenare) | "held-out" (CONGELATO, solo eval finale)',
+        "# Regola anti-leakage: ogni held-out ha la sua classe coperta altrove in train, ad app diversa.",
+        "",
+    ]
+    for r in rows:
+        lines += [
+            "[[target]]",
+            f'id = "{r["id"]}"',
+            f'class = "{r["cls"]}"',
+            f'stack = "{r["stack"]}"',
+            f'split = "{r["split"]}"',
+            "",
+        ]
+    return "\n".join(lines)
+
+
 def main() -> int:
-    content = render(collect())
+    rows = collect()
+    content = render(rows)
+    manifest = render_manifest(rows)
     if "--check" in sys.argv:
-        cur = OUT.read_text() if OUT.exists() else ""
-        if cur != content:
-            print("IMPORTED.md è STALE — rigenera con: python3.12 tools/inventory.py", file=sys.stderr)
+        stale = (OUT.read_text() if OUT.exists() else "") != content or \
+                (MANIFEST.read_text() if MANIFEST.exists() else "") != manifest
+        if stale:
+            print("indici STALE — rigenera con: python3.12 tools/inventory.py", file=sys.stderr)
             return 1
-        print("IMPORTED.md aggiornato ✅")
+        print("IMPORTED.md + manifest.toml aggiornati ✅")
         return 0
     OUT.write_text(content)
-    print(f"scritto {OUT.relative_to(ROOT)} ({len(collect())} target)")
+    MANIFEST.write_text(manifest)
+    print(f"scritti IMPORTED.md + manifest.toml ({len(rows)} target)")
     return 0
 
 

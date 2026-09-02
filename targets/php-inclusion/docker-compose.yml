@@ -1,0 +1,16 @@
+# Target Vulhub php/inclusion (MIT). Immagine pinnata, no ports, rete lab internal.
+name: kalithos-dojo-php-inclusion
+
+services:
+  php:
+    image: vulhub/php@sha256:2982ffe2ed4fc950bac2596161a2977d31e49817f1a7e4f8a45df47ca259d8b1
+    networks: [lab]
+
+  attacker:
+    image: grpo-rt/kali-lite:latest
+    networks: [lab]
+    command: sleep infinity
+
+networks:
+  lab:
+    internal: true
