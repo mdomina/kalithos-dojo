@@ -75,3 +75,15 @@ id = "cacti-cve-2022-46169"
 class = "command-injection"    # near-transfer: classe command-injection vista in train via thinkphp (app diversa)
 stack = "php"
 split = "held-out"
+
+[[target]]
+id = "flask-ssti"
+class = "ssti"                 # Jinja2 template injection; foothold www-data (worker gunicorn)
+stack = "python"               # nuovo stack nel pool
+split = "train"
+
+[[target]]
+id = "solr-cve-2019-17558"
+class = "ssti"                 # cross-engine: SSTI Velocity(java) vs Jinja2(python) in train (flask)
+stack = "java"
+split = "held-out"
