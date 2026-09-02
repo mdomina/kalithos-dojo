@@ -63,3 +63,9 @@ id = "phpmyadmin-wooyun-2016-199433"
 class = "deserialization"      # php unserialize; near-transfer same-stack (joomla) + cross-stack (weblogic)
 stack = "php"
 split = "held-out"
+
+[[target]]
+id = "activemq-cve-2016-3088"
+class = "upload-webshell"      # near-transfer: classe upload-webshell vista in train via tomcat (app diversa)
+stack = "java"
+split = "held-out"
