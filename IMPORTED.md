@@ -3,10 +3,10 @@
 **GENERATO** da `tools/inventory.py` a partire dai `target.toml` — non modificare a mano.
 Rigenera con: `python3.12 tools/inventory.py`.
 
-Totale: **36** target — 26 train + 10 held-out. Stack: java, js, other, php, python.
+Totale: **38** target — 26 train + 12 held-out. Stack: java, js, other, php, python.
 
-Classi misurabili (coppia train+held-out): **auth-bypass, cgi-rce, command-injection, deserialization, expression-injection, ognl, ssti, unauth-rce, upload-webshell**.  
-Classi train-only (unicum onesti): code-injection, file-inclusion, form-rce, rce.
+Classi misurabili (coppia train+held-out): **auth-bypass, cgi-rce, code-injection, command-injection, deserialization, expression-injection, file-inclusion, ognl, ssti, unauth-rce, upload-webshell**.  
+Classi train-only (unicum onesti): form-rce, rce.
 
 | split | classe | stack | target (dojo) | origine vulhub | CVE | flag_user |
 |---|---|---|---|---|---|---|
@@ -38,10 +38,12 @@ Classi train-only (unicum onesti): code-injection, file-inclusion, form-rce, rce
 | train | upload-webshell | java | `tomcat-cve-2017-12615` | `tomcat/CVE-2017-12615` | CVE-2017-12615 | root |
 | held-out | auth-bypass | java | `teamcity-cve-2023-42793` | `teamcity/CVE-2023-42793` | — | tcuser |
 | held-out | cgi-rce | other | `bash-cve-2014-6271` | `bash/CVE-2014-6271` | — | www-data |
+| held-out | code-injection | java | `h2database-cve-2018-10054` | `h2database/CVE-2018-10054` | — | root |
 | held-out | command-injection | php | `cacti-cve-2022-46169` | `cacti/CVE-2022-46169` | CVE-2022-46169 | www-data |
 | held-out | deserialization | php | `phpmyadmin-wooyun-2016-199433` | `phpmyadmin/WooYun-2016-199433` | — | www-data |
 | held-out | deserialization | java | `shiro-cve-2016-4437` | `shiro/CVE-2016-4437` | CVE-2016-4437 | root |
 | held-out | expression-injection | js | `n8n-cve-2025-68613` | `n8n/CVE-2025-68613` | — | root |
+| held-out | file-inclusion | php | `phpmailer-cve-2017-5223` | `phpmailer/CVE-2017-5223` | — | www-data |
 | held-out | ognl | java | `confluence-cve-2022-26134` | `confluence/CVE-2022-26134` | CVE-2022-26134 | confluence |
 | held-out | ssti | java | `solr-cve-2019-17558` | `solr/CVE-2019-17558` | CVE-2019-17558 | root |
 | held-out | unauth-rce | python | `scrapyd-unacc-rce` | `scrapy/scrapyd-unacc` | — | root |
