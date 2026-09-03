@@ -18,6 +18,7 @@ Richiede Python 3.11+ e Docker.
 from __future__ import annotations
 
 import argparse
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -25,6 +26,11 @@ from pathlib import Path
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
+# checkout vulhub: env VULHUB_DIR, altrimenti ~/workspace/vulhub (vedi PIPELINE.md)
+DEFAULT_VULHUB = os.environ.get("VULHUB_DIR", str(Path.home() / "workspace" / "vulhub"))
+# harness kalithos-cybersec (per healthcheck.py): env KALITHOS_HARNESS, altrimenti repo fratello
+DEFAULT_HARNESS = os.environ.get(
+    "KALITHOS_HARNESS", str(ROOT.parent / "kalithos-cybersec" / "recipes" / "grpo-rt" / "env"))
 
 
 def sh(cmd: list[str], **kw) -> subprocess.CompletedProcess:
@@ -47,7 +53,7 @@ def main() -> int:
     ap.add_argument("--port", type=int, required=True, help="porta INTERNA del servizio target")
     ap.add_argument("--health-path", default="/")
     ap.add_argument("--flag-user", default=None)
-    ap.add_argument("--vulhub", default="/private/tmp/kbsrc/vulhub")
+    ap.add_argument("--vulhub", default=DEFAULT_VULHUB)
     a = ap.parse_args()
 
     vdir = Path(a.vulhub) / a.vpath
@@ -168,10 +174,9 @@ license = "MIT (Vulhub)"
 '''
     (tdir / "target.toml").write_text(toml)
 
-    # healthcheck ufficiale
+    # healthcheck ufficiale (harness kalithos-cybersec; path via KALITHOS_HARNESS o repo fratello)
     env = {"KALITHOS_DOJO": str(ROOT)}
-    import os
-    hc = subprocess.run([sys.executable, str(ROOT.parent / "kalithos-cybersec/recipes/grpo-rt/env/healthcheck.py"),
+    hc = subprocess.run([sys.executable, str(Path(DEFAULT_HARNESS) / "healthcheck.py"),
                          "--target", a.id, "--wait", "30"],
                         env={**os.environ, **env}, capture_output=True, text=True)
     passed = "AMBIENTE OK" in hc.stdout

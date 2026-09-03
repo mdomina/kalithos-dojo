@@ -17,14 +17,19 @@ targets/<id>/
   docker-compose.yml   # compose Vulhub, immagine PINNATA a digest (stabilità)
   target.toml          # spec DICHIARATIVA (target_service, flag_path, flag_user, classe, split, provenienza)
   milestones.py        # (opz.) oracoli evidence-based per il reward shaped
-manifest.toml          # indice: classe / stack / split (train | held-out)
-ONBOARDING.md          # la checklist fissa per aggiungere un target
+manifest.toml          # indice GENERATO: classe / stack / split (train | held-out)
+IMPORTED.md            # registro GENERATO: target -> origine Vulhub / CVE / flag_user
+ONBOARDING.md          # checklist fissa per aggiungere UN target (a mano)
+PIPELINE.md            # pipeline per estrarre target IN BATCH (ripristinabile in altra sessione)
+tools/                 # survey.py, onboard.py, onboard_batch.sh, verify_all.sh, inventory.py
 ATTRIBUTION.md         # provenienza Vulhub + licenze
 ```
 
 ## Come si usa
 L'harness legge `targets/<id>/target.toml` e costruisce l'ambiente (`docker compose up` isolato,
-inietta flag random, verifica). Aggiungere un target = seguire [ONBOARDING.md](ONBOARDING.md).
+inietta flag random, verifica).
+- **Aggiungere un target a mano** → [ONBOARDING.md](ONBOARDING.md) (checklist).
+- **Estrarre target in batch da Vulhub** (e riprendere in un'altra sessione) → [PIPELINE.md](PIPELINE.md).
 
 ## Requisiti di stabilità (perché non è fragile)
 1. **Digest pinning**: le immagini sono fissate a `@sha256:...` → immuni a re-tag/rimozioni upstream.
