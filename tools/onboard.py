@@ -11,6 +11,11 @@ Uso:
 
 Opzioni:
   --health-path /   percorso HTTP per l'health (default /)
+  --health-scheme http|https   scheme del curl (default http; https usa `curl -k`)
+  --health-codes REGEX         codici HTTP accettati (default '200|30[0-9]|401|403')
+                               es. '200|30[0-9]|401|403|404' per app che rispondono 404 su /
+  --health-cmd CMD             comando health completo (bypassa curl HTTP); es. per non-HTTP:
+                               "nc -z {tname} {port}" — {tname}/{port} vengono sostituiti
   --flag-user U     forza flag_user (salta l'ispezione)
   --vulhub DIR      root del checkout vulhub (default /private/tmp/kbsrc/vulhub)
 Richiede Python 3.11+ e Docker.
@@ -52,6 +57,11 @@ def main() -> int:
     ap.add_argument("--split", required=True, choices=["train", "held-out"])
     ap.add_argument("--port", type=int, required=True, help="porta INTERNA del servizio target")
     ap.add_argument("--health-path", default="/")
+    ap.add_argument("--health-scheme", default="http", choices=["http", "https"])
+    ap.add_argument("--health-codes", default="200|30[0-9]|401|403",
+                    help="regex ERE dei codici HTTP accettati (default '200|30[0-9]|401|403')")
+    ap.add_argument("--health-cmd", default=None,
+                    help="comando health custom (bypassa curl); {tname}/{port} sostituiti")
     ap.add_argument("--flag-user", default=None)
     ap.add_argument("--vulhub", default=DEFAULT_VULHUB)
     a = ap.parse_args()
@@ -102,20 +112,36 @@ def main() -> int:
     # avvio + poll health
     compose("up", "-d")
     hp = a.health_path
-    health = (f"curl -s -o /dev/null -w '%{{http_code}}' --max-time 5 "
-              f"http://{tname}:{a.port}{hp} | grep -qE '200|30[0-9]|401|403'")
-    ok = False
+    codes = a.health_codes
+    kflag = "-k " if a.health_scheme == "https" else ""
+    if a.health_cmd:
+        # health custom (es. non-HTTP): l'utente ha la responsabilità del regex/verifica
+        health = a.health_cmd.format(tname=tname, port=a.port)
+        probe = health  # per il polling usiamo lo stesso, exit-code based
+    else:
+        health = (f"curl {kflag}-s -o /dev/null -w '%{{http_code}}' --max-time 5 "
+                  f"{a.health_scheme}://{tname}:{a.port}{hp} | grep -qE '{codes}'")
+        probe = None  # ramo dedicato sotto (guarda il codice restituito)
+
     import time
+    ok = False
     for _ in range(30):
-        r = compose("exec", "-T", "attacker", "sh", "-c",
-                    f"curl -s -o /dev/null -w '%{{http_code}}' --max-time 5 http://{tname}:{a.port}{hp}")
-        code = r.stdout.strip()
-        if code and code[0] in "2334":
-            ok = True
-            break
+        if a.health_cmd:
+            r = compose("exec", "-T", "attacker", "sh", "-c", health)
+            if r.returncode == 0:
+                ok = True; break
+        else:
+            r = compose("exec", "-T", "attacker", "sh", "-c",
+                        f"curl {kflag}-s -o /dev/null -w '%{{http_code}}' --max-time 5 "
+                        f"{a.health_scheme}://{tname}:{a.port}{hp}")
+            code = r.stdout.strip()
+            import re as _re
+            if code and _re.fullmatch(codes, code):
+                ok = True; break
         time.sleep(5)
     if not ok:
-        print(f"[{a.id}] HEALTH KO (porta {a.port}{hp} non risponde) -> SCARTO")
+        where = a.health_cmd or f"{a.health_scheme}://{tname}:{a.port}{hp} (codes={codes})"
+        print(f"[{a.id}] HEALTH KO ({where} non risponde) -> SCARTO")
         compose("down", "-v")
         return 2
 

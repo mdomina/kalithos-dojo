@@ -37,15 +37,33 @@ Elenca i target Vulhub **taggati RCE**, di **app non ancora importate** (le escl
 ## 2. Preparare la lista da onboardare
 
 Un file di testo, una riga per target — decidi tu **class/stack/split** e la **porta interna**
-(dalla colonna `port` del survey). Formato:
+(dalla colonna `port` del survey). Formato base:
 
 ```
 # id|vpath|class|stack|split|port|healthpath
 fastjson-1-2-47-rce|fastjson/1.2.47-rce|deserialization|java|train|8090|/
 nacos-cve-2021-29442|nacos/CVE-2021-29442|auth-bypass|java|train|8848|/nacos/
 ```
+
 Regola **anti-leakage**: un `held-out` deve avere la sua classe coperta in `train` da un'**app diversa**
 (coppia near-transfer). Se non esiste un gemello onesto, tienilo `train` (no coppie forzate).
+
+**Colonne extra opzionali** (8-10) per servizi che non rispondono al default `curl http://` con
+codici `200|30[0-9]|401|403`:
+
+```
+# id|vpath|class|stack|split|port|healthpath|scheme|codes|cmd
+h2database-cve-2018-10054|h2database/CVE-2018-10054|code-injection|java|held-out|8080|/||200|30[0-9]|401|403|404|
+saltstack-cve-2020-16846|saltstack/CVE-2020-16846|unauth-rce|python|held-out|8000|/|https||
+samba-cve-2017-7494|samba/CVE-2017-7494|unauth-rce|other|held-out|445|/|||nc -z {tname} {port}
+```
+
+- `scheme` = `http`|`https`. `https` invoca `curl -k` (accetta cert self-signed).
+- `codes` = regex ERE dei codici HTTP accettati. Serve p.es. per app che rispondono **404 su `/`**
+  (h2database, spring senza root handler): aggiungi `|404` al default.
+- `cmd` = comando health custom (bypassa curl). Usalo per **servizi non-HTTP** (SMB/SMTP/RMI puri):
+  `nc -z {tname} {port}` verifica il TCP-connect. `{tname}`/`{port}` vengono sostituiti.
+  Con `cmd` presente, `scheme` e `codes` sono ignorati.
 
 ## 3. Onboardare in batch
 
@@ -87,7 +105,10 @@ survey.py  ->  scrivi lista  ->  onboard_batch.sh  ->  verify_all.sh  ->  invent
 - **Digest pinnato** sempre (immune a re-tag upstream) — lo fa `onboard.py`.
 - **`build`-based** (compose con `build:` invece di `image:`): non gestiti da `onboard.py`; copia il
   build-context in `targets/<id>/build/` e pinna il `FROM` (vedi tomcat/struts2 come esempi).
-- **Servizi non-HTTP** (RMI/SSH/DB puri): l'health via curl fallisce → si auto-eliminano. Se li vuoi,
-  scrivi un `health_cmd` custom nel `target.toml` (es. `nc -z host porta`) e valida a mano.
+- **Servizi non-HTTP / HTTPS-only / codici non standard**: NON scartarli — usa le colonne extra
+  (`scheme`/`codes`/`cmd`) documentate al passo 2. Non serve più editare a mano `target.toml`.
 - **Niente pipe** sul comando `onboard.py` in script custom: `... | tail` maschera l'exit code e
   segna PASS i FAIL. `onboard_batch.sh` è già corretto.
+- **Baco stdin risolto**: `onboard.py` chiamato da uno script che legge un file va invocato con
+  `< /dev/null` — senza, i `docker compose exec -T` interni ereditano lo stdin del padre e
+  "mangiano" bytes del file-lista (fix già applicato in `onboard_batch.sh`).

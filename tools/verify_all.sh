@@ -20,5 +20,5 @@ for d in "$DOJO"/targets/*/; do
   else FAIL+=("$id"); echo "FAIL  $id"; echo "$out" | grep -E '\[FAIL|\[SKIP' | sed 's/^/      /'; fi
 done
 echo "===== VERIFY ALL ====="
-echo "PASS: ${#PASS[@]}  |  FAIL: ${#FAIL[@]}  ${FAIL[*]}"
+echo "PASS: ${#PASS[@]}  |  FAIL: ${#FAIL[@]}  ${FAIL[*]:-}"
 [ "${#FAIL[@]}" -eq 0 ]
