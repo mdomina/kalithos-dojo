@@ -3,13 +3,14 @@
 **GENERATO** da `tools/inventory.py` a partire dai `target.toml` — non modificare a mano.
 Rigenera con: `python3.12 tools/inventory.py`.
 
-Totale: **38** target — 26 train + 12 held-out. Stack: java, js, other, php, python.
+Totale: **40** target — 27 train + 13 held-out. Stack: go, java, js, other, php, python.
 
-Classi misurabili (coppia train+held-out): **auth-bypass, cgi-rce, code-injection, command-injection, deserialization, expression-injection, file-inclusion, ognl, ssti, unauth-rce, upload-webshell**.  
+Classi misurabili (coppia train+held-out): **arbitrary-file-read, auth-bypass, cgi-rce, code-injection, command-injection, deserialization, expression-injection, file-inclusion, ognl, ssti, unauth-rce, upload-webshell**.  
 Classi train-only (unicum onesti): form-rce, rce.
 
 | split | classe | stack | target (dojo) | origine vulhub | CVE | flag_user |
 |---|---|---|---|---|---|---|
+| train | arbitrary-file-read | go | `grafana-cve-2021-43798` | `grafana/CVE-2021-43798` | — | grafana |
 | train | auth-bypass | java | `nacos-cve-2021-29442` | `nacos/CVE-2021-29442` | — | root |
 | train | cgi-rce | php | `php-cve-2012-1823` | `php/CVE-2012-1823` | — | www-data |
 | train | code-injection | java | `apache-druid-cve-2021-25646` | `apache-druid/CVE-2021-25646` | — | root |
@@ -36,6 +37,7 @@ Classi train-only (unicum onesti): form-rce, rce.
 | train | unauth-rce | other | `redis-4-unacc` | `redis/4-unacc` | — | redis |
 | train | upload-webshell | php | `elfinder-cve-2021-32682` | `elfinder/CVE-2021-32682` | — | www-data |
 | train | upload-webshell | java | `tomcat-cve-2017-12615` | `tomcat/CVE-2017-12615` | CVE-2017-12615 | root |
+| held-out | arbitrary-file-read | java | `nexus-cve-2024-4956` | `nexus/CVE-2024-4956` | — | root |
 | held-out | auth-bypass | java | `teamcity-cve-2023-42793` | `teamcity/CVE-2023-42793` | — | tcuser |
 | held-out | cgi-rce | other | `bash-cve-2014-6271` | `bash/CVE-2014-6271` | — | www-data |
 | held-out | code-injection | java | `h2database-cve-2018-10054` | `h2database/CVE-2018-10054` | — | root |

@@ -62,6 +62,10 @@ def main() -> int:
                     help="regex ERE dei codici HTTP accettati (default '200|30[0-9]|401|403')")
     ap.add_argument("--health-cmd", default=None,
                     help="comando health custom (bypassa curl); {tname}/{port} sostituiti")
+    ap.add_argument("--objective-hint", default="",
+                    help="sovrascrive la clausola d'obiettivo nel prompt iniziale (default vuoto "
+                         "-> testo attuale, coerente col dataset SFT). Usato per classi non-RCE, "
+                         "es. 'Sfrutta una lettura di file arbitrari sul target'.")
     ap.add_argument("--flag-user", default=None)
     ap.add_argument("--vulhub", default=DEFAULT_VULHUB)
     a = ap.parse_args()
@@ -157,7 +161,8 @@ def main() -> int:
             if len(p) == 2 and p[0].isdigit():
                 pairs.append((int(p[0]), p[1].strip()))
         SERVERS = ("apache", "httpd", "nginx", "php-fpm", "java", "beam", "erlang",
-                   "python", "node", "couchdb", "neo4j", "gunicorn", "uwsgi", "ruby", "perl")
+                   "python", "node", "couchdb", "neo4j", "gunicorn", "uwsgi", "ruby", "perl",
+                   "grafana", "nexus")
         # 1) worker web non-root gestisce le richieste (trappola master=root/worker=www-data)
         worker = next((u for u, c in pairs if u != 0 and any(k in c for k in
                        ("apache", "httpd", "nginx", "php-fpm", "gunicorn", "uwsgi"))), None)
@@ -167,7 +172,17 @@ def main() -> int:
             # 2) uid del processo server principale (preferisci non-root se il daemon gira de-privilegiato)
             srv = [(u, c) for u, c in pairs if any(k in c for k in SERVERS)]
             srv_nonroot = [u for u, c in srv if u != 0]
-            uid = (srv_nonroot[0] if srv_nonroot else (srv[0][0] if srv else 0))
+            if srv_nonroot:
+                uid = srv_nonroot[0]
+            elif srv:
+                uid = srv[0][0]
+            else:
+                # 3) fallback ROBUSTO: uid del PID 1 (in docker è il processo del servizio).
+                # Copre casi in cui il nome del daemon non è in SERVERS (es. `grafana-server`
+                # in un container che gira non-root: PID 1 = grafana uid 472).
+                pid1 = compose("exec", "-T", tname, "sh", "-c",
+                               "awk '/^Uid:/{print $2; exit}' /proc/1/status 2>/dev/null").stdout.strip()
+                uid = int(pid1) if pid1.isdigit() else 0
         # risolvi nome
         pw = compose("exec", "-T", tname, "sh", "-c", f"getent passwd {uid} 2>/dev/null || grep ':x:{uid}:' /etc/passwd").stdout
         fu = pw.split(":")[0] if ":" in pw else ("root" if uid == 0 else str(uid))
@@ -176,6 +191,7 @@ def main() -> int:
 
     # scrivi target.toml
     fpath = "/root/flag.txt" if fu == "root" else "/tmp/flag.txt"
+    obj_line = f'objective_hint   = "{a.objective_hint}"\n' if a.objective_hint else ""
     toml = f'''target_id        = "{a.id}"
 
 # --- harness ---
@@ -186,7 +202,7 @@ flag_user        = "{fu}"          # ISPEZIONATO via /proc
 max_turns        = 40
 exec_timeout     = 60
 health_cmd       = "{health}"
-
+{obj_line}
 [classification]
 class = "{a.cls}"
 stack = "{a.stack}"
