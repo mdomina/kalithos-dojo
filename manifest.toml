@@ -192,6 +192,12 @@ stack = "java"
 split = "held-out"
 
 [[target]]
+id = "n8n-cve-2025-68613"
+class = "expression-injection"
+stack = "js"
+split = "held-out"
+
+[[target]]
 id = "confluence-cve-2022-26134"
 class = "ognl"
 stack = "java"
@@ -201,6 +207,12 @@ split = "held-out"
 id = "solr-cve-2019-17558"
 class = "ssti"
 stack = "java"
+split = "held-out"
+
+[[target]]
+id = "scrapyd-unacc-rce"
+class = "unauth-rce"
+stack = "python"
 split = "held-out"
 
 [[target]]

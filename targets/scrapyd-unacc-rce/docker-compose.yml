@@ -1,0 +1,16 @@
+# Target Vulhub scrapy/scrapyd-unacc (MIT). Immagine pinnata, no ports, rete lab internal.
+name: kalithos-dojo-scrapyd-unacc-rce
+
+services:
+  scrapyd:
+    image: vulhub/scrapyd@sha256:88c27057f4e2baac8f211d69c3a7e5ad984a9102f1fbe1f68f3279e5a1fa90aa
+    networks: [lab]
+
+  attacker:
+    image: grpo-rt/kali-lite:latest
+    networks: [lab]
+    command: sleep infinity
+
+networks:
+  lab:
+    internal: true
