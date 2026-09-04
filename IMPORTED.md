@@ -3,7 +3,7 @@
 **GENERATO** da `tools/inventory.py` a partire dai `target.toml` — non modificare a mano.
 Rigenera con: `python3.12 tools/inventory.py`.
 
-Totale: **88** target — 75 train + 13 held-out. Stack: go, java, js, other, perl, php, python.
+Totale: **93** target — 80 train + 13 held-out. Stack: erlang, go, java, js, other, perl, php, python.
 
 Classi misurabili (coppia train+held-out): **arbitrary-file-read, auth-bypass, cgi-rce, code-injection, command-injection, deserialization, expression-injection, file-inclusion, ognl, ssti, unauth-rce, upload-webshell**.  
 Classi train-only (unicum onesti): form-rce, rce.
@@ -12,6 +12,7 @@ Classi train-only (unicum onesti): form-rce, rce.
 |---|---|---|---|---|---|---|
 | train | arbitrary-file-read | java | `apache-cxf-cve-2024-28752` | `apache-cxf/CVE-2024-28752` | — | root |
 | train | arbitrary-file-read | go | `grafana-cve-2021-43798` | `grafana/CVE-2021-43798` | — | grafana |
+| train | auth-bypass | other | `inetutils-cve-2026-24061` | `inetutils/CVE-2026-24061` | — | root |
 | train | auth-bypass | java | `nacos-cve-2021-29442` | `nacos/CVE-2021-29442` | — | root |
 | train | auth-bypass | java | `ofbiz-cve-2023-51467` | `ofbiz/CVE-2023-51467` | — | root |
 | train | cgi-rce | php | `php-cve-2012-1823` | `php/CVE-2012-1823` | — | www-data |
@@ -63,7 +64,10 @@ Classi train-only (unicum onesti): form-rce, rce.
 | train | ognl | java | `struts2-s2-001` | `struts2/s2-001` | — | root |
 | train | rce | python | `comfyui-cve-2025-67303` | `comfyui/CVE-2025-67303` | — | root |
 | train | rce | python | `comfyui-cve-2026-22777` | `comfyui/CVE-2026-22777` | — | root |
+| train | rce | other | `git-cve-2017-8386` | `git/CVE-2017-8386` | — | root |
 | train | rce | go | `gitea-1-4-rce` | `gitea/1.4-rce` | — | root |
+| train | rce | java | `java-rmi-codebase` | `java/rmi-codebase` | — | root |
+| train | rce | other | `kibana-cve-2019-7609` | `kibana/CVE-2019-7609` | — | kibana |
 | train | rce | java | `kkfileview-4-3-zipslip-rce` | `kkfileview/4.3-zipslip-rce` | — | root |
 | train | rce | python | `langflow-cve-2025-3248` | `langflow/CVE-2025-3248` | — | root |
 | train | rce | php | `laravel-cve-2021-3129` | `laravel/CVE-2021-3129` | — | www-data |
@@ -79,6 +83,7 @@ Classi train-only (unicum onesti): form-rce, rce.
 | train | unauth-rce | other | `aria2-rce` | `aria2/rce` | — | root |
 | train | unauth-rce | other | `couchdb-cve-2017-12636` | `couchdb/CVE-2017-12636` | — | couchdb |
 | train | unauth-rce | other | `couchdb-cve-2022-24706` | `couchdb/CVE-2022-24706` | — | root |
+| train | unauth-rce | erlang | `erlang-cve-2025-32433` | `erlang/CVE-2025-32433` | — | root |
 | train | unauth-rce | other | `opensmtpd-cve-2020-7247` | `opensmtpd/CVE-2020-7247` | — | root |
 | train | unauth-rce | other | `redis-4-unacc` | `redis/4-unacc` | — | redis |
 | train | unauth-rce | python | `saltstack-cve-2020-16846` | `saltstack/CVE-2020-16846` | — | root |

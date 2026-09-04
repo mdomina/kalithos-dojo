@@ -1,0 +1,18 @@
+# Target Vulhub java/rmi-codebase (MIT). Immagine pinnata, no ports, rete lab internal.
+name: kalithos-dojo-java-rmi-codebase
+
+services:
+  rmi:
+    image: vulhub/j2ee@sha256:0e6fd0c891105b6b945d8006cc4e31ce3bb00fc733513ba41b1f5e764bd98a4a
+    networks: [lab]
+    environment:
+      - RMIIP=127.0.0.1
+
+  attacker:
+    image: grpo-rt/kali-lite:latest
+    networks: [lab]
+    command: sleep infinity
+
+networks:
+  lab:
+    internal: true

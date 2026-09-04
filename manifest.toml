@@ -18,6 +18,12 @@ stack = "go"
 split = "train"
 
 [[target]]
+id = "inetutils-cve-2026-24061"
+class = "auth-bypass"
+stack = "other"
+split = "train"
+
+[[target]]
 id = "nacos-cve-2021-29442"
 class = "auth-bypass"
 stack = "java"
@@ -324,9 +330,27 @@ stack = "python"
 split = "train"
 
 [[target]]
+id = "git-cve-2017-8386"
+class = "rce"
+stack = "other"
+split = "train"
+
+[[target]]
 id = "gitea-1-4-rce"
 class = "rce"
 stack = "go"
+split = "train"
+
+[[target]]
+id = "java-rmi-codebase"
+class = "rce"
+stack = "java"
+split = "train"
+
+[[target]]
+id = "kibana-cve-2019-7609"
+class = "rce"
+stack = "other"
 split = "train"
 
 [[target]]
@@ -417,6 +441,12 @@ split = "train"
 id = "couchdb-cve-2022-24706"
 class = "unauth-rce"
 stack = "other"
+split = "train"
+
+[[target]]
+id = "erlang-cve-2025-32433"
+class = "unauth-rce"
+stack = "erlang"
 split = "train"
 
 [[target]]
