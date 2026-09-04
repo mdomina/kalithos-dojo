@@ -168,6 +168,12 @@ stack = "java"
 split = "train"
 
 [[target]]
+id = "jmeter-cve-2018-1297"
+class = "deserialization"
+stack = "java"
+split = "train"
+
+[[target]]
 id = "joomla-cve-2015-8562"
 class = "deserialization"
 stack = "php"
@@ -342,6 +348,12 @@ stack = "php"
 split = "train"
 
 [[target]]
+id = "livewire-cve-2025-54068"
+class = "rce"
+stack = "php"
+split = "train"
+
+[[target]]
 id = "nexus-cve-2019-7238"
 class = "rce"
 stack = "java"
@@ -355,6 +367,12 @@ split = "train"
 
 [[target]]
 id = "pgadmin-cve-2022-4223"
+class = "rce"
+stack = "python"
+split = "train"
+
+[[target]]
+id = "pgadmin-cve-2023-5002"
 class = "rce"
 stack = "python"
 split = "train"
@@ -397,6 +415,12 @@ split = "train"
 
 [[target]]
 id = "couchdb-cve-2022-24706"
+class = "unauth-rce"
+stack = "other"
+split = "train"
+
+[[target]]
+id = "opensmtpd-cve-2020-7247"
 class = "unauth-rce"
 stack = "other"
 split = "train"
