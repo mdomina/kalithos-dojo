@@ -24,6 +24,12 @@ stack = "java"
 split = "train"
 
 [[target]]
+id = "ofbiz-cve-2023-51467"
+class = "auth-bypass"
+stack = "java"
+split = "train"
+
+[[target]]
 id = "php-cve-2012-1823"
 class = "cgi-rce"
 stack = "php"
@@ -42,6 +48,12 @@ stack = "java"
 split = "train"
 
 [[target]]
+id = "geoserver-cve-2022-24816"
+class = "code-injection"
+stack = "java"
+split = "train"
+
+[[target]]
 id = "jenkins-cve-2018-1000861"
 class = "code-injection"
 stack = "java"
@@ -55,6 +67,12 @@ split = "train"
 
 [[target]]
 id = "opentsdb-cve-2020-35476"
+class = "command-injection"
+stack = "java"
+split = "train"
+
+[[target]]
+id = "opentsdb-cve-2023-25826"
 class = "command-injection"
 stack = "java"
 split = "train"
@@ -153,6 +171,12 @@ split = "train"
 id = "joomla-cve-2015-8562"
 class = "deserialization"
 stack = "php"
+split = "train"
+
+[[target]]
+id = "kafka-cve-2023-25194"
+class = "deserialization"
+stack = "java"
 split = "train"
 
 [[target]]
