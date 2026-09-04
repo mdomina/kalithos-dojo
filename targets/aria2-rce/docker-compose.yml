@@ -1,0 +1,16 @@
+# Target Vulhub aria2/rce (MIT). Immagine pinnata, no ports, rete lab internal.
+name: kalithos-dojo-aria2-rce
+
+services:
+  aria2:
+    image: vulhub/aria2@sha256:760ff890d69226deba6fe3476b9be7844b83fd4f1540b40f8593cd8f812c49f6
+    networks: [lab]
+
+  attacker:
+    image: grpo-rt/kali-lite:latest
+    networks: [lab]
+    command: sleep infinity
+
+networks:
+  lab:
+    internal: true

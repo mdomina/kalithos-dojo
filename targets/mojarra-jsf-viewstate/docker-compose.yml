@@ -1,0 +1,16 @@
+# Target Vulhub mojarra/jsf-viewstate-deserialization (MIT). Immagine pinnata, no ports, rete lab internal.
+name: kalithos-dojo-mojarra-jsf-viewstate
+
+services:
+  web:
+    image: vulhub/mojarra@sha256:792ff63743829c4b0c57a4efb9cd0092d29a2d032473928cedce30a0f5cf892d
+    networks: [lab]
+
+  attacker:
+    image: grpo-rt/kali-lite:latest
+    networks: [lab]
+    command: sleep infinity
+
+networks:
+  lab:
+    internal: true

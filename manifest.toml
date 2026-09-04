@@ -180,9 +180,21 @@ stack = "java"
 split = "train"
 
 [[target]]
+id = "mojarra-jsf-viewstate"
+class = "deserialization"
+stack = "java"
+split = "train"
+
+[[target]]
 id = "neo4j-cve-2021-34371"
 class = "deserialization"
 stack = "java"
+split = "train"
+
+[[target]]
+id = "react-cve-2025-55182"
+class = "deserialization"
+stack = "js"
 split = "train"
 
 [[target]]
@@ -318,6 +330,12 @@ stack = "java"
 split = "train"
 
 [[target]]
+id = "langflow-cve-2025-3248"
+class = "rce"
+stack = "python"
+split = "train"
+
+[[target]]
 id = "laravel-cve-2021-3129"
 class = "rce"
 stack = "php"
@@ -333,6 +351,12 @@ split = "train"
 id = "openclaw-cve-2026-25253"
 class = "rce"
 stack = "other"
+split = "train"
+
+[[target]]
+id = "pgadmin-cve-2022-4223"
+class = "rce"
+stack = "python"
 split = "train"
 
 [[target]]
@@ -357,6 +381,12 @@ split = "train"
 id = "flask-ssti"
 class = "ssti"
 stack = "python"
+split = "train"
+
+[[target]]
+id = "aria2-rce"
+class = "unauth-rce"
+stack = "other"
 split = "train"
 
 [[target]]
