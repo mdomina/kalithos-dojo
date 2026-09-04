@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -40,6 +41,49 @@ DEFAULT_HARNESS = os.environ.get(
 
 def sh(cmd: list[str], **kw) -> subprocess.CompletedProcess:
     return subprocess.run(cmd, capture_output=True, text=True, **kw)
+
+
+def svc_extras(s: dict, vdir: Path, tdir: Path) -> list[str]:
+    """Righe compose extra per un servizio: `command:` e `volumes:` bind-mount LOCALI.
+
+    I bind relativi (`./x:/dest`) del compose vulhub montano file/dir che vivono nella
+    dir del target vulhub: li COPIA in `targets/<id>/` e riscrive il path. I named volume
+    (`nome:/dest`) e gli anonymous (`/dest`) restano invariati (li gestisce Docker a runtime).
+    """
+    out: list[str] = []
+    wd = s.get("working_dir")
+    if wd:
+        out.append(f"    working_dir: {wd}")
+    cmd = s.get("command")
+    if cmd is not None:
+        if isinstance(cmd, list):
+            out.append("    command: [" + ", ".join(f'"{c}"' for c in cmd) + "]")
+        else:
+            out.append(f"    command: {cmd}")
+    vols = s.get("volumes") or []
+    emitted = []
+    for v in vols:
+        if not isinstance(v, str) or ":" not in v:
+            continue
+        src, rest = v.split(":", 1)          # src = sorgente host, rest = dest[:mode]
+        if src.startswith("."):              # bind LOCALE relativo -> copia + preserva
+            srcp = (vdir / src).resolve()
+            if srcp.exists():
+                dst = tdir / srcp.name
+                if srcp.is_dir():
+                    shutil.copytree(srcp, dst, dirs_exist_ok=True)
+                else:
+                    tdir.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(srcp, dst)
+                emitted.append(f"      - ./{srcp.name}:{rest}")
+        elif src.startswith("/"):            # bind assoluto host (raro): lascia invariato
+            emitted.append(f"      - {v}")
+        else:                                # named/anonymous volume: invariato
+            emitted.append(f"      - {v}")
+    if emitted:
+        out.append("    volumes:")
+        out += emitted
+    return out
 
 
 def pin(image: str) -> str:
@@ -81,6 +125,10 @@ def main() -> int:
     timg = pin(svcs[tname]["image"])
     dep_imgs = {n: pin(s["image"]) for n, s in deps.items() if "image" in s}
 
+    # tdir prima della generazione: svc_extras copia qui i bind-mount locali
+    tdir = ROOT / "targets" / a.id
+    tdir.mkdir(parents=True, exist_ok=True)
+
     # genera compose isolato
     lines = [f"# Target Vulhub {a.vpath} (MIT). Immagine pinnata, no ports, rete lab internal.",
              f"name: kalithos-dojo-{a.id}", "", "services:",
@@ -93,6 +141,7 @@ def main() -> int:
         env = svcs[tname]["environment"]
         for e in (env if isinstance(env, list) else [f"{k}={v}" for k, v in env.items()]):
             lines.append(f"      - {e}")
+    lines += svc_extras(svcs[tname], vdir, tdir)   # command + volumes locali del target
     for n, s in deps.items():
         lines += ["", f"  {n}:", f"    image: {dep_imgs.get(n, s.get('image'))}", "    networks: [lab]"]
         if s.get("environment"):
@@ -100,11 +149,10 @@ def main() -> int:
             env = s["environment"]
             for e in (env if isinstance(env, list) else [f"{k}={v}" for k, v in env.items()]):
                 lines.append(f"      - {e}")
+        lines += svc_extras(s, vdir, tdir)         # command + volumes locali del dep
     lines += ["", "  attacker:", "    image: grpo-rt/kali-lite:latest",
               "    networks: [lab]", "    command: sleep infinity",
               "", "networks:", "  lab:", "    internal: true", ""]
-    tdir = ROOT / "targets" / a.id
-    tdir.mkdir(parents=True, exist_ok=True)
     (tdir / "docker-compose.yml").write_text("\n".join(lines))
 
     proj = f"kalithos-dojo-{a.id}"

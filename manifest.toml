@@ -42,6 +42,12 @@ stack = "java"
 split = "train"
 
 [[target]]
+id = "goahead-cve-2017-17562"
+class = "cgi-rce"
+stack = "other"
+split = "train"
+
+[[target]]
 id = "php-cve-2012-1823"
 class = "cgi-rce"
 stack = "php"
@@ -75,6 +81,12 @@ split = "train"
 id = "metabase-cve-2023-38646"
 class = "code-injection"
 stack = "java"
+split = "train"
+
+[[target]]
+id = "imagemagick-cve-2016-3714"
+class = "command-injection"
+stack = "php"
 split = "train"
 
 [[target]]
@@ -414,6 +426,12 @@ stack = "other"
 split = "train"
 
 [[target]]
+id = "pdfjs-cve-2024-4367"
+class = "rce"
+stack = "js"
+split = "train"
+
+[[target]]
 id = "pgadmin-cve-2022-4223"
 class = "rce"
 stack = "python"
@@ -429,6 +447,12 @@ split = "train"
 id = "phpunit-cve-2017-9841"
 class = "rce"
 stack = "php"
+split = "train"
+
+[[target]]
+id = "ruby-cve-2017-17405"
+class = "rce"
+stack = "ruby"
 split = "train"
 
 [[target]]
@@ -495,6 +519,12 @@ split = "train"
 id = "saltstack-cve-2020-16846"
 class = "unauth-rce"
 stack = "python"
+split = "train"
+
+[[target]]
+id = "samba-cve-2017-7494"
+class = "unauth-rce"
+stack = "other"
 split = "train"
 
 [[target]]

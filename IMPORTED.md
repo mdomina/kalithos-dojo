@@ -3,7 +3,7 @@
 **GENERATO** da `tools/inventory.py` a partire dai `target.toml` — non modificare a mano.
 Rigenera con: `python3.12 tools/inventory.py`.
 
-Totale: **98** target — 85 train + 13 held-out. Stack: erlang, go, java, js, other, perl, php, python.
+Totale: **103** target — 90 train + 13 held-out. Stack: erlang, go, java, js, other, perl, php, python, ruby.
 
 Classi misurabili (coppia train+held-out): **arbitrary-file-read, auth-bypass, cgi-rce, code-injection, command-injection, deserialization, expression-injection, file-inclusion, ognl, ssti, unauth-rce, upload-webshell**.  
 Classi train-only (unicum onesti): form-rce, rce.
@@ -16,12 +16,14 @@ Classi train-only (unicum onesti): form-rce, rce.
 | train | auth-bypass | other | `inetutils-cve-2026-24061` | `inetutils/CVE-2026-24061` | — | root |
 | train | auth-bypass | java | `nacos-cve-2021-29442` | `nacos/CVE-2021-29442` | — | root |
 | train | auth-bypass | java | `ofbiz-cve-2023-51467` | `ofbiz/CVE-2023-51467` | — | root |
+| train | cgi-rce | other | `goahead-cve-2017-17562` | `goahead/CVE-2017-17562` | — | root |
 | train | cgi-rce | php | `php-cve-2012-1823` | `php/CVE-2012-1823` | — | www-data |
 | train | code-injection | java | `apache-druid-cve-2021-25646` | `apache-druid/CVE-2021-25646` | — | root |
 | train | code-injection | java | `elasticsearch-cve-2014-3120` | `elasticsearch/CVE-2014-3120` | — | root |
 | train | code-injection | java | `geoserver-cve-2022-24816` | `geoserver/CVE-2022-24816` | — | root |
 | train | code-injection | java | `jenkins-cve-2018-1000861` | `jenkins/CVE-2018-1000861` | — | jenkins |
 | train | code-injection | java | `metabase-cve-2023-38646` | `metabase/CVE-2023-38646` | — | metabase |
+| train | command-injection | php | `imagemagick-cve-2016-3714` | `imagemagick/CVE-2016-3714` | — | root |
 | train | command-injection | java | `opentsdb-cve-2020-35476` | `opentsdb/CVE-2020-35476` | — | root |
 | train | command-injection | java | `opentsdb-cve-2023-25826` | `opentsdb/CVE-2023-25826` | — | root |
 | train | command-injection | other | `postgres-cve-2019-9193` | `postgres/CVE-2019-9193` | — | postgres |
@@ -78,9 +80,11 @@ Classi train-only (unicum onesti): form-rce, rce.
 | train | rce | php | `livewire-cve-2025-54068` | `livewire/CVE-2025-54068` | — | www-data |
 | train | rce | java | `nexus-cve-2019-7238` | `nexus/CVE-2019-7238` | — | root |
 | train | rce | other | `openclaw-cve-2026-25253` | `openclaw/CVE-2026-25253` | — | root |
+| train | rce | js | `pdfjs-cve-2024-4367` | `pdfjs/CVE-2024-4367` | — | www-data |
 | train | rce | python | `pgadmin-cve-2022-4223` | `pgadmin/CVE-2022-4223` | — | root |
 | train | rce | python | `pgadmin-cve-2023-5002` | `pgadmin/CVE-2023-5002` | — | root |
 | train | rce | php | `phpunit-cve-2017-9841` | `phpunit/CVE-2017-9841` | — | www-data |
+| train | rce | ruby | `ruby-cve-2017-17405` | `ruby/CVE-2017-17405` | — | root |
 | train | rce | php | `showdoc-cnvd-2020-26585` | `showdoc/CNVD-2020-26585` | — | www-data |
 | train | rce | java | `spring-cve-2022-22965` | `spring/CVE-2022-22965` | — | root |
 | train | rce | php | `wordpress-pwnscriptum` | `wordpress/pwnscriptum` | — | www-data |
@@ -92,6 +96,7 @@ Classi train-only (unicum onesti): form-rce, rce.
 | train | unauth-rce | other | `opensmtpd-cve-2020-7247` | `opensmtpd/CVE-2020-7247` | — | root |
 | train | unauth-rce | other | `redis-4-unacc` | `redis/4-unacc` | — | redis |
 | train | unauth-rce | python | `saltstack-cve-2020-16846` | `saltstack/CVE-2020-16846` | — | root |
+| train | unauth-rce | other | `samba-cve-2017-7494` | `samba/CVE-2017-7494` | — | root |
 | train | unauth-rce | python | `supervisor-cve-2017-11610` | `supervisor/CVE-2017-11610` | — | root |
 | train | upload-webshell | php | `elfinder-cve-2021-32682` | `elfinder/CVE-2021-32682` | — | www-data |
 | train | upload-webshell | java | `tomcat-cve-2017-12615` | `tomcat/CVE-2017-12615` | CVE-2017-12615 | root |
