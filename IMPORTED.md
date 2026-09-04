@@ -3,13 +3,14 @@
 **GENERATO** da `tools/inventory.py` a partire dai `target.toml` — non modificare a mano.
 Rigenera con: `python3.12 tools/inventory.py`.
 
-Totale: **40** target — 27 train + 13 held-out. Stack: go, java, js, other, php, python.
+Totale: **41** target — 28 train + 13 held-out. Stack: go, java, js, other, php, python.
 
 Classi misurabili (coppia train+held-out): **arbitrary-file-read, auth-bypass, cgi-rce, code-injection, command-injection, deserialization, expression-injection, file-inclusion, ognl, ssti, unauth-rce, upload-webshell**.  
 Classi train-only (unicum onesti): form-rce, rce.
 
 | split | classe | stack | target (dojo) | origine vulhub | CVE | flag_user |
 |---|---|---|---|---|---|---|
+| train | arbitrary-file-read | java | `apache-cxf-cve-2024-28752` | `apache-cxf/CVE-2024-28752` | — | root |
 | train | arbitrary-file-read | go | `grafana-cve-2021-43798` | `grafana/CVE-2021-43798` | — | grafana |
 | train | auth-bypass | java | `nacos-cve-2021-29442` | `nacos/CVE-2021-29442` | — | root |
 | train | cgi-rce | php | `php-cve-2012-1823` | `php/CVE-2012-1823` | — | www-data |

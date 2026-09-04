@@ -6,6 +6,12 @@
 # Regola anti-leakage: ogni held-out ha la sua classe coperta altrove in train, ad app diversa.
 
 [[target]]
+id = "apache-cxf-cve-2024-28752"
+class = "arbitrary-file-read"
+stack = "java"
+split = "train"
+
+[[target]]
 id = "grafana-cve-2021-43798"
 class = "arbitrary-file-read"
 stack = "go"
