@@ -105,6 +105,10 @@ survey.py  ->  scrivi lista  ->  onboard_batch.sh  ->  verify_all.sh  ->  invent
 - **Digest pinnato** sempre (immune a re-tag upstream) — lo fa `onboard.py`.
 - **`build`-based** (compose con `build:` invece di `image:`): non gestiti da `onboard.py`; copia il
   build-context in `targets/<id>/build/` e pinna il `FROM` (vedi tomcat/struts2 come esempi).
+- **`command` / `working_dir` / `volumes` locali**: gestiti da `onboard.py` (funzione `svc_extras`):
+  il compose generato preserva `command`/`working_dir` e COPIA i bind-mount relativi (`./x:/dest`)
+  in `targets/<id>/` riscrivendo il path (named/anonymous volume invariati). I file copiati vanno
+  committati col target (es. `index.php`, `web.rb`, `smb.conf`). Vale per target E deps.
 - **Servizi non-HTTP / HTTPS-only / codici non standard**: NON scartarli — usa le colonne extra
   (`scheme`/`codes`/`cmd`) documentate al passo 2. Non serve più editare a mano `target.toml`.
 - **Niente pipe** sul comando `onboard.py` in script custom: `... | tail` maschera l'exit code e
