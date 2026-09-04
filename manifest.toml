@@ -36,9 +36,21 @@ stack = "java"
 split = "train"
 
 [[target]]
+id = "metabase-cve-2023-38646"
+class = "code-injection"
+stack = "java"
+split = "train"
+
+[[target]]
 id = "thinkphp-5-rce"
 class = "command-injection"
 stack = "php"
+split = "train"
+
+[[target]]
+id = "webmin-cve-2019-15107"
+class = "command-injection"
+stack = "perl"
 split = "train"
 
 [[target]]
@@ -96,7 +108,19 @@ stack = "java"
 split = "train"
 
 [[target]]
+id = "xstream-cve-2021-29505"
+class = "deserialization"
+stack = "java"
+split = "train"
+
+[[target]]
 id = "hugegraph-cve-2024-27348"
+class = "expression-injection"
+stack = "java"
+split = "train"
+
+[[target]]
+id = "spring-cve-2022-22947"
 class = "expression-injection"
 stack = "java"
 split = "train"
@@ -129,6 +153,12 @@ split = "train"
 id = "comfyui-cve-2026-22777"
 class = "rce"
 stack = "python"
+split = "train"
+
+[[target]]
+id = "laravel-cve-2021-3129"
+class = "rce"
+stack = "php"
 split = "train"
 
 [[target]]

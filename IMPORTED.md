@@ -3,7 +3,7 @@
 **GENERATO** da `tools/inventory.py` a partire dai `target.toml` — non modificare a mano.
 Rigenera con: `python3.12 tools/inventory.py`.
 
-Totale: **41** target — 28 train + 13 held-out. Stack: go, java, js, other, php, python.
+Totale: **46** target — 33 train + 13 held-out. Stack: go, java, js, other, perl, php, python.
 
 Classi misurabili (coppia train+held-out): **arbitrary-file-read, auth-bypass, cgi-rce, code-injection, command-injection, deserialization, expression-injection, file-inclusion, ognl, ssti, unauth-rce, upload-webshell**.  
 Classi train-only (unicum onesti): form-rce, rce.
@@ -15,7 +15,9 @@ Classi train-only (unicum onesti): form-rce, rce.
 | train | auth-bypass | java | `nacos-cve-2021-29442` | `nacos/CVE-2021-29442` | — | root |
 | train | cgi-rce | php | `php-cve-2012-1823` | `php/CVE-2012-1823` | — | www-data |
 | train | code-injection | java | `apache-druid-cve-2021-25646` | `apache-druid/CVE-2021-25646` | — | root |
+| train | code-injection | java | `metabase-cve-2023-38646` | `metabase/CVE-2023-38646` | — | metabase |
 | train | command-injection | php | `thinkphp-5-rce` | `thinkphp/5-rce` | — | www-data |
+| train | command-injection | perl | `webmin-cve-2019-15107` | `webmin/CVE-2019-15107` | — | root |
 | train | deserialization | java | `fastjson-1-2-24-rce` | `fastjson/1.2.24-rce` | — | root |
 | train | deserialization | java | `fastjson-1-2-47-rce` | `fastjson/1.2.47-rce` | — | root |
 | train | deserialization | java | `fastjson-1-2-83-rce` | `fastjson/1.2.83-rce` | — | root |
@@ -25,12 +27,15 @@ Classi train-only (unicum onesti): form-rce, rce.
 | train | deserialization | php | `joomla-cve-2015-8562` | `joomla/CVE-2015-8562` | CVE-2015-8562 | www-data |
 | train | deserialization | java | `neo4j-cve-2021-34371` | `neo4j/CVE-2021-34371` | — | neo4j |
 | train | deserialization | java | `weblogic-cve-2017-10271` | `weblogic/CVE-2017-10271` | CVE-2017-10271 | root |
+| train | deserialization | java | `xstream-cve-2021-29505` | `xstream/CVE-2021-29505` | — | root |
 | train | expression-injection | java | `hugegraph-cve-2024-27348` | `hugegraph/CVE-2024-27348` | — | root |
+| train | expression-injection | java | `spring-cve-2022-22947` | `spring/CVE-2022-22947` | — | root |
 | train | file-inclusion | php | `php-inclusion` | `php/inclusion` | — | www-data |
 | train | form-rce | php | `drupal-cve-2018-7600` | `drupal/CVE-2018-7600` | CVE-2018-7600 | www-data |
 | train | ognl | java | `struts2-s2-001` | `struts2/s2-001` | — | root |
 | train | rce | python | `comfyui-cve-2025-67303` | `comfyui/CVE-2025-67303` | — | root |
 | train | rce | python | `comfyui-cve-2026-22777` | `comfyui/CVE-2026-22777` | — | root |
+| train | rce | php | `laravel-cve-2021-3129` | `laravel/CVE-2021-3129` | — | www-data |
 | train | rce | other | `openclaw-cve-2026-25253` | `openclaw/CVE-2026-25253` | — | root |
 | train | ssti | python | `flask-ssti` | `flask/ssti` | — | www-data |
 | train | unauth-rce | other | `couchdb-cve-2017-12636` | `couchdb/CVE-2017-12636` | — | couchdb |
