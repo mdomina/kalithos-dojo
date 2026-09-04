@@ -36,6 +36,18 @@ stack = "java"
 split = "train"
 
 [[target]]
+id = "elasticsearch-cve-2014-3120"
+class = "code-injection"
+stack = "java"
+split = "train"
+
+[[target]]
+id = "jenkins-cve-2018-1000861"
+class = "code-injection"
+stack = "java"
+split = "train"
+
+[[target]]
 id = "metabase-cve-2023-38646"
 class = "code-injection"
 stack = "java"
@@ -162,6 +174,12 @@ stack = "java"
 split = "train"
 
 [[target]]
+id = "log4j-cve-2021-44228"
+class = "expression-injection"
+stack = "java"
+split = "train"
+
+[[target]]
 id = "spring-cve-2016-4977"
 class = "expression-injection"
 stack = "java"
@@ -175,6 +193,12 @@ split = "train"
 
 [[target]]
 id = "spring-cve-2022-22947"
+class = "expression-injection"
+stack = "java"
+split = "train"
+
+[[target]]
+id = "spring-cve-2022-22963"
 class = "expression-injection"
 stack = "java"
 split = "train"
@@ -231,6 +255,12 @@ split = "train"
 id = "openclaw-cve-2026-25253"
 class = "rce"
 stack = "other"
+split = "train"
+
+[[target]]
+id = "phpunit-cve-2017-9841"
+class = "rce"
+stack = "php"
 split = "train"
 
 [[target]]
