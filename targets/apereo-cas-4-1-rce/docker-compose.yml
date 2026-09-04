@@ -1,0 +1,16 @@
+# Target Vulhub apereo-cas/4.1-rce (MIT). Immagine pinnata, no ports, rete lab internal.
+name: kalithos-dojo-apereo-cas-4-1-rce
+
+services:
+  web:
+    image: vulhub/apereo-cas@sha256:82f6de470fd94cfa6e210541a5d10f8a8bf0b941759afb1239101653e6e451dd
+    networks: [lab]
+
+  attacker:
+    image: grpo-rt/kali-lite:latest
+    networks: [lab]
+    command: sleep infinity
+
+networks:
+  lab:
+    internal: true

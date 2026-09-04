@@ -60,6 +60,12 @@ stack = "perl"
 split = "train"
 
 [[target]]
+id = "apereo-cas-4-1-rce"
+class = "deserialization"
+stack = "java"
+split = "train"
+
+[[target]]
 id = "coldfusion-cve-2023-26360"
 class = "deserialization"
 stack = "java"
@@ -126,6 +132,12 @@ stack = "java"
 split = "train"
 
 [[target]]
+id = "superset-cve-2023-37941"
+class = "deserialization"
+stack = "python"
+split = "train"
+
+[[target]]
 id = "weblogic-cve-2017-10271"
 class = "deserialization"
 stack = "java"
@@ -145,6 +157,12 @@ split = "train"
 
 [[target]]
 id = "hugegraph-cve-2024-27348"
+class = "expression-injection"
+stack = "java"
+split = "train"
+
+[[target]]
+id = "spring-cve-2016-4977"
 class = "expression-injection"
 stack = "java"
 split = "train"
@@ -243,6 +261,18 @@ split = "train"
 id = "redis-4-unacc"
 class = "unauth-rce"
 stack = "other"
+split = "train"
+
+[[target]]
+id = "saltstack-cve-2020-16846"
+class = "unauth-rce"
+stack = "python"
+split = "train"
+
+[[target]]
+id = "supervisor-cve-2017-11610"
+class = "unauth-rce"
+stack = "python"
 split = "train"
 
 [[target]]
