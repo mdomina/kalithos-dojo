@@ -1,0 +1,16 @@
+# Target Vulhub gitea/1.4-rce (MIT). Immagine pinnata, no ports, rete lab internal.
+name: kalithos-dojo-gitea-1-4-rce
+
+services:
+  web:
+    image: vulhub/gitea@sha256:1cf5283b8139c72ac6775602a77e7d61e5f2efa82e085f2734b9f3b3f9388700
+    networks: [lab]
+
+  attacker:
+    image: grpo-rt/kali-lite:latest
+    networks: [lab]
+    command: sleep infinity
+
+networks:
+  lab:
+    internal: true
