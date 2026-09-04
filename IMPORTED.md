@@ -3,7 +3,7 @@
 **GENERATO** da `tools/inventory.py` a partire dai `target.toml` — non modificare a mano.
 Rigenera con: `python3.12 tools/inventory.py`.
 
-Totale: **70** target — 57 train + 13 held-out. Stack: go, java, js, other, perl, php, python.
+Totale: **75** target — 62 train + 13 held-out. Stack: go, java, js, other, perl, php, python.
 
 Classi misurabili (coppia train+held-out): **arbitrary-file-read, auth-bypass, cgi-rce, code-injection, command-injection, deserialization, expression-injection, file-inclusion, ognl, ssti, unauth-rce, upload-webshell**.  
 Classi train-only (unicum onesti): form-rce, rce.
@@ -18,6 +18,7 @@ Classi train-only (unicum onesti): form-rce, rce.
 | train | code-injection | java | `elasticsearch-cve-2014-3120` | `elasticsearch/CVE-2014-3120` | — | root |
 | train | code-injection | java | `jenkins-cve-2018-1000861` | `jenkins/CVE-2018-1000861` | — | jenkins |
 | train | code-injection | java | `metabase-cve-2023-38646` | `metabase/CVE-2023-38646` | — | metabase |
+| train | command-injection | java | `opentsdb-cve-2020-35476` | `opentsdb/CVE-2020-35476` | — | root |
 | train | command-injection | other | `postgres-cve-2019-9193` | `postgres/CVE-2019-9193` | — | postgres |
 | train | command-injection | php | `thinkphp-5-rce` | `thinkphp/5-rce` | — | www-data |
 | train | command-injection | perl | `webmin-cve-2019-15107` | `webmin/CVE-2019-15107` | — | root |
@@ -27,6 +28,7 @@ Classi train-only (unicum onesti): form-rce, rce.
 | train | deserialization | java | `fastjson-1-2-24-rce` | `fastjson/1.2.24-rce` | — | root |
 | train | deserialization | java | `fastjson-1-2-47-rce` | `fastjson/1.2.47-rce` | — | root |
 | train | deserialization | java | `fastjson-1-2-83-rce` | `fastjson/1.2.83-rce` | — | root |
+| train | deserialization | java | `hertzbeat-cve-2024-42323` | `hertzbeat/CVE-2024-42323` | — | root |
 | train | deserialization | java | `jackson-cve-2017-7525` | `jackson/CVE-2017-7525` | — | root |
 | train | deserialization | java | `jboss-cve-2017-12149` | `jboss/CVE-2017-12149` | — | root |
 | train | deserialization | java | `jboss-cve-2017-7504` | `jboss/CVE-2017-7504` | — | root |
@@ -43,6 +45,8 @@ Classi train-only (unicum onesti): form-rce, rce.
 | train | expression-injection | java | `hugegraph-cve-2024-27348` | `hugegraph/CVE-2024-27348` | — | root |
 | train | expression-injection | java | `log4j-cve-2021-44228` | `log4j/CVE-2021-44228` | — | root |
 | train | expression-injection | java | `spring-cve-2016-4977` | `spring/CVE-2016-4977` | — | root |
+| train | expression-injection | java | `spring-cve-2017-4971` | `spring/CVE-2017-4971` | — | root |
+| train | expression-injection | java | `spring-cve-2017-8046` | `spring/CVE-2017-8046` | — | root |
 | train | expression-injection | java | `spring-cve-2018-1270` | `spring/CVE-2018-1270` | — | root |
 | train | expression-injection | java | `spring-cve-2018-1273` | `spring/CVE-2018-1273` | — | root |
 | train | expression-injection | java | `spring-cve-2022-22947` | `spring/CVE-2022-22947` | — | root |
@@ -55,6 +59,7 @@ Classi train-only (unicum onesti): form-rce, rce.
 | train | rce | go | `gitea-1-4-rce` | `gitea/1.4-rce` | — | root |
 | train | rce | java | `kkfileview-4-3-zipslip-rce` | `kkfileview/4.3-zipslip-rce` | — | root |
 | train | rce | php | `laravel-cve-2021-3129` | `laravel/CVE-2021-3129` | — | www-data |
+| train | rce | java | `nexus-cve-2019-7238` | `nexus/CVE-2019-7238` | — | root |
 | train | rce | other | `openclaw-cve-2026-25253` | `openclaw/CVE-2026-25253` | — | root |
 | train | rce | php | `phpunit-cve-2017-9841` | `phpunit/CVE-2017-9841` | — | www-data |
 | train | rce | php | `showdoc-cnvd-2020-26585` | `showdoc/CNVD-2020-26585` | — | www-data |

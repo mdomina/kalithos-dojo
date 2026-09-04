@@ -54,6 +54,12 @@ stack = "java"
 split = "train"
 
 [[target]]
+id = "opentsdb-cve-2020-35476"
+class = "command-injection"
+stack = "java"
+split = "train"
+
+[[target]]
 id = "postgres-cve-2019-9193"
 class = "command-injection"
 stack = "other"
@@ -103,6 +109,12 @@ split = "train"
 
 [[target]]
 id = "fastjson-1-2-83-rce"
+class = "deserialization"
+stack = "java"
+split = "train"
+
+[[target]]
+id = "hertzbeat-cve-2024-42323"
 class = "deserialization"
 stack = "java"
 split = "train"
@@ -204,6 +216,18 @@ stack = "java"
 split = "train"
 
 [[target]]
+id = "spring-cve-2017-4971"
+class = "expression-injection"
+stack = "java"
+split = "train"
+
+[[target]]
+id = "spring-cve-2017-8046"
+class = "expression-injection"
+stack = "java"
+split = "train"
+
+[[target]]
 id = "spring-cve-2018-1270"
 class = "expression-injection"
 stack = "java"
@@ -273,6 +297,12 @@ split = "train"
 id = "laravel-cve-2021-3129"
 class = "rce"
 stack = "php"
+split = "train"
+
+[[target]]
+id = "nexus-cve-2019-7238"
+class = "rce"
+stack = "java"
 split = "train"
 
 [[target]]
