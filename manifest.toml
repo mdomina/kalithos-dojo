@@ -18,6 +18,12 @@ stack = "go"
 split = "train"
 
 [[target]]
+id = "aj-report-cnvd-2024-15077"
+class = "auth-bypass"
+stack = "java"
+split = "train"
+
+[[target]]
 id = "inetutils-cve-2026-24061"
 class = "auth-bypass"
 stack = "other"
@@ -145,6 +151,18 @@ split = "train"
 
 [[target]]
 id = "jackson-cve-2017-7525"
+class = "deserialization"
+stack = "java"
+split = "train"
+
+[[target]]
+id = "java-rmi-registry-bind-deser-bypass"
+class = "deserialization"
+stack = "java"
+split = "train"
+
+[[target]]
+id = "java-rmi-registry-bind-deserialization"
 class = "deserialization"
 stack = "java"
 split = "train"
@@ -318,6 +336,12 @@ stack = "java"
 split = "train"
 
 [[target]]
+id = "cmsms-cve-2021-26120"
+class = "rce"
+stack = "php"
+split = "train"
+
+[[target]]
 id = "comfyui-cve-2025-67303"
 class = "rce"
 stack = "python"
@@ -417,6 +441,12 @@ split = "train"
 id = "spring-cve-2022-22965"
 class = "rce"
 stack = "java"
+split = "train"
+
+[[target]]
+id = "wordpress-pwnscriptum"
+class = "rce"
+stack = "php"
 split = "train"
 
 [[target]]

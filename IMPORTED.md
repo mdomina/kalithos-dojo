@@ -3,7 +3,7 @@
 **GENERATO** da `tools/inventory.py` a partire dai `target.toml` — non modificare a mano.
 Rigenera con: `python3.12 tools/inventory.py`.
 
-Totale: **93** target — 80 train + 13 held-out. Stack: erlang, go, java, js, other, perl, php, python.
+Totale: **98** target — 85 train + 13 held-out. Stack: erlang, go, java, js, other, perl, php, python.
 
 Classi misurabili (coppia train+held-out): **arbitrary-file-read, auth-bypass, cgi-rce, code-injection, command-injection, deserialization, expression-injection, file-inclusion, ognl, ssti, unauth-rce, upload-webshell**.  
 Classi train-only (unicum onesti): form-rce, rce.
@@ -12,6 +12,7 @@ Classi train-only (unicum onesti): form-rce, rce.
 |---|---|---|---|---|---|---|
 | train | arbitrary-file-read | java | `apache-cxf-cve-2024-28752` | `apache-cxf/CVE-2024-28752` | — | root |
 | train | arbitrary-file-read | go | `grafana-cve-2021-43798` | `grafana/CVE-2021-43798` | — | grafana |
+| train | auth-bypass | java | `aj-report-cnvd-2024-15077` | `aj-report/CNVD-2024-15077` | — | root |
 | train | auth-bypass | other | `inetutils-cve-2026-24061` | `inetutils/CVE-2026-24061` | — | root |
 | train | auth-bypass | java | `nacos-cve-2021-29442` | `nacos/CVE-2021-29442` | — | root |
 | train | auth-bypass | java | `ofbiz-cve-2023-51467` | `ofbiz/CVE-2023-51467` | — | root |
@@ -34,6 +35,8 @@ Classi train-only (unicum onesti): form-rce, rce.
 | train | deserialization | java | `fastjson-1-2-83-rce` | `fastjson/1.2.83-rce` | — | root |
 | train | deserialization | java | `hertzbeat-cve-2024-42323` | `hertzbeat/CVE-2024-42323` | — | root |
 | train | deserialization | java | `jackson-cve-2017-7525` | `jackson/CVE-2017-7525` | — | root |
+| train | deserialization | java | `java-rmi-registry-bind-deser-bypass` | `java/rmi-registry-bind-deserialization-bypass` | — | root |
+| train | deserialization | java | `java-rmi-registry-bind-deserialization` | `java/rmi-registry-bind-deserialization` | — | root |
 | train | deserialization | java | `jboss-cve-2017-12149` | `jboss/CVE-2017-12149` | — | root |
 | train | deserialization | java | `jboss-cve-2017-7504` | `jboss/CVE-2017-7504` | — | root |
 | train | deserialization | java | `jboss-jmxinvokerservlet` | `jboss/JMXInvokerServlet-deserialization` | — | root |
@@ -62,6 +65,7 @@ Classi train-only (unicum onesti): form-rce, rce.
 | train | file-inclusion | php | `php-inclusion` | `php/inclusion` | — | www-data |
 | train | form-rce | php | `drupal-cve-2018-7600` | `drupal/CVE-2018-7600` | CVE-2018-7600 | www-data |
 | train | ognl | java | `struts2-s2-001` | `struts2/s2-001` | — | root |
+| train | rce | php | `cmsms-cve-2021-26120` | `cmsms/CVE-2021-26120` | — | www-data |
 | train | rce | python | `comfyui-cve-2025-67303` | `comfyui/CVE-2025-67303` | — | root |
 | train | rce | python | `comfyui-cve-2026-22777` | `comfyui/CVE-2026-22777` | — | root |
 | train | rce | other | `git-cve-2017-8386` | `git/CVE-2017-8386` | — | root |
@@ -79,6 +83,7 @@ Classi train-only (unicum onesti): form-rce, rce.
 | train | rce | php | `phpunit-cve-2017-9841` | `phpunit/CVE-2017-9841` | — | www-data |
 | train | rce | php | `showdoc-cnvd-2020-26585` | `showdoc/CNVD-2020-26585` | — | www-data |
 | train | rce | java | `spring-cve-2022-22965` | `spring/CVE-2022-22965` | — | root |
+| train | rce | php | `wordpress-pwnscriptum` | `wordpress/pwnscriptum` | — | www-data |
 | train | ssti | python | `flask-ssti` | `flask/ssti` | — | www-data |
 | train | unauth-rce | other | `aria2-rce` | `aria2/rce` | — | root |
 | train | unauth-rce | other | `couchdb-cve-2017-12636` | `couchdb/CVE-2017-12636` | — | couchdb |

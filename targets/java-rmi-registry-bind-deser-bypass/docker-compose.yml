@@ -1,0 +1,18 @@
+# Target Vulhub java/rmi-registry-bind-deserialization-bypass (MIT). Immagine pinnata, no ports, rete lab internal.
+name: kalithos-dojo-java-rmi-registry-bind-deser-bypass
+
+services:
+  rmi:
+    image: vulhub/j2ee@sha256:6febed54b74bbff6393b09fdf6fd93fda228fc5bc5b54dc39cc97aa55ce7442e
+    networks: [lab]
+    environment:
+      - RMIIP=192.168.31.88
+
+  attacker:
+    image: grpo-rt/kali-lite:latest
+    networks: [lab]
+    command: sleep infinity
+
+networks:
+  lab:
+    internal: true

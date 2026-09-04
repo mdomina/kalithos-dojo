@@ -1,0 +1,30 @@
+# Target Vulhub aj-report/CNVD-2024-15077 (MIT). Immagine pinnata, no ports, rete lab internal.
+name: kalithos-dojo-aj-report-cnvd-2024-15077
+
+services:
+  web:
+    image: vulhub/aj-report@sha256:586f2ae961586f7d5f608707a060b5c6f8ba6d9e98c095242196b0750e6d982c
+    networks: [lab]
+    depends_on: [db]
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_PORT=3306
+      - MYSQL_DB=aj_report
+      - MYSQL_USERNAME=root
+      - MYSQL_PASSWORD=root
+
+  db:
+    image: mysql@sha256:4bc6bc963e6d8443453676cae56536f4b8156d78bae03c0145cbe47c2aad73bb
+    networks: [lab]
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=aj_report
+
+  attacker:
+    image: grpo-rt/kali-lite:latest
+    networks: [lab]
+    command: sleep infinity
+
+networks:
+  lab:
+    internal: true
