@@ -1,0 +1,16 @@
+# Target Vulhub showdoc/CNVD-2020-26585 (MIT). Immagine pinnata, no ports, rete lab internal.
+name: kalithos-dojo-showdoc-cnvd-2020-26585
+
+services:
+  web:
+    image: vulhub/showdoc@sha256:1e545eb020c989bb88e5de4c1dc69d951038505f5d96340d8a11d75145b5fcfb
+    networks: [lab]
+
+  attacker:
+    image: grpo-rt/kali-lite:latest
+    networks: [lab]
+    command: sleep infinity
+
+networks:
+  lab:
+    internal: true

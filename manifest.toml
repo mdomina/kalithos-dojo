@@ -78,6 +78,12 @@ stack = "java"
 split = "train"
 
 [[target]]
+id = "coldfusion-cve-2017-3066"
+class = "deserialization"
+stack = "java"
+split = "train"
+
+[[target]]
 id = "coldfusion-cve-2023-26360"
 class = "deserialization"
 stack = "java"
@@ -156,6 +162,12 @@ stack = "java"
 split = "train"
 
 [[target]]
+id = "xstream-cve-2021-21351"
+class = "deserialization"
+stack = "java"
+split = "train"
+
+[[target]]
 id = "xstream-cve-2021-29505"
 class = "deserialization"
 stack = "java"
@@ -163,6 +175,12 @@ split = "train"
 
 [[target]]
 id = "elasticsearch-cve-2015-1427"
+class = "expression-injection"
+stack = "java"
+split = "train"
+
+[[target]]
+id = "geoserver-cve-2024-36401"
 class = "expression-injection"
 stack = "java"
 split = "train"
@@ -187,6 +205,12 @@ split = "train"
 
 [[target]]
 id = "spring-cve-2018-1270"
+class = "expression-injection"
+stack = "java"
+split = "train"
+
+[[target]]
+id = "spring-cve-2018-1273"
 class = "expression-injection"
 stack = "java"
 split = "train"
@@ -259,6 +283,12 @@ split = "train"
 
 [[target]]
 id = "phpunit-cve-2017-9841"
+class = "rce"
+stack = "php"
+split = "train"
+
+[[target]]
+id = "showdoc-cnvd-2020-26585"
 class = "rce"
 stack = "php"
 split = "train"
