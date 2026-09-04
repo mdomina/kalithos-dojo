@@ -3,7 +3,7 @@
 **GENERATO** da `tools/inventory.py` a partire dai `target.toml` — non modificare a mano.
 Rigenera con: `python3.12 tools/inventory.py`.
 
-Totale: **50** target — 37 train + 13 held-out. Stack: go, java, js, other, perl, php, python.
+Totale: **55** target — 42 train + 13 held-out. Stack: go, java, js, other, perl, php, python.
 
 Classi misurabili (coppia train+held-out): **arbitrary-file-read, auth-bypass, cgi-rce, code-injection, command-injection, deserialization, expression-injection, file-inclusion, ognl, ssti, unauth-rce, upload-webshell**.  
 Classi train-only (unicum onesti): form-rce, rce.
@@ -19,6 +19,7 @@ Classi train-only (unicum onesti): form-rce, rce.
 | train | command-injection | other | `postgres-cve-2019-9193` | `postgres/CVE-2019-9193` | — | postgres |
 | train | command-injection | php | `thinkphp-5-rce` | `thinkphp/5-rce` | — | www-data |
 | train | command-injection | perl | `webmin-cve-2019-15107` | `webmin/CVE-2019-15107` | — | root |
+| train | deserialization | java | `coldfusion-cve-2023-26360` | `coldfusion/CVE-2023-26360` | — | cfuser |
 | train | deserialization | java | `fastjson-1-2-24-rce` | `fastjson/1.2.24-rce` | — | root |
 | train | deserialization | java | `fastjson-1-2-47-rce` | `fastjson/1.2.47-rce` | — | root |
 | train | deserialization | java | `fastjson-1-2-83-rce` | `fastjson/1.2.83-rce` | — | root |
@@ -31,7 +32,9 @@ Classi train-only (unicum onesti): form-rce, rce.
 | train | deserialization | java | `neo4j-cve-2021-34371` | `neo4j/CVE-2021-34371` | — | neo4j |
 | train | deserialization | java | `weblogic-cve-2017-10271` | `weblogic/CVE-2017-10271` | CVE-2017-10271 | root |
 | train | deserialization | java | `xstream-cve-2021-29505` | `xstream/CVE-2021-29505` | — | root |
+| train | expression-injection | java | `elasticsearch-cve-2015-1427` | `elasticsearch/CVE-2015-1427` | — | root |
 | train | expression-injection | java | `hugegraph-cve-2024-27348` | `hugegraph/CVE-2024-27348` | — | root |
+| train | expression-injection | java | `spring-cve-2018-1270` | `spring/CVE-2018-1270` | — | root |
 | train | expression-injection | java | `spring-cve-2022-22947` | `spring/CVE-2022-22947` | — | root |
 | train | file-inclusion | php | `php-inclusion` | `php/inclusion` | — | www-data |
 | train | form-rce | php | `drupal-cve-2018-7600` | `drupal/CVE-2018-7600` | CVE-2018-7600 | www-data |
@@ -39,8 +42,10 @@ Classi train-only (unicum onesti): form-rce, rce.
 | train | rce | python | `comfyui-cve-2025-67303` | `comfyui/CVE-2025-67303` | — | root |
 | train | rce | python | `comfyui-cve-2026-22777` | `comfyui/CVE-2026-22777` | — | root |
 | train | rce | go | `gitea-1-4-rce` | `gitea/1.4-rce` | — | root |
+| train | rce | java | `kkfileview-4-3-zipslip-rce` | `kkfileview/4.3-zipslip-rce` | — | root |
 | train | rce | php | `laravel-cve-2021-3129` | `laravel/CVE-2021-3129` | — | www-data |
 | train | rce | other | `openclaw-cve-2026-25253` | `openclaw/CVE-2026-25253` | — | root |
+| train | rce | java | `spring-cve-2022-22965` | `spring/CVE-2022-22965` | — | root |
 | train | ssti | python | `flask-ssti` | `flask/ssti` | — | www-data |
 | train | unauth-rce | other | `couchdb-cve-2017-12636` | `couchdb/CVE-2017-12636` | — | couchdb |
 | train | unauth-rce | other | `couchdb-cve-2022-24706` | `couchdb/CVE-2022-24706` | — | root |

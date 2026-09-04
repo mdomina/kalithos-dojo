@@ -1,0 +1,16 @@
+# Target Vulhub kkfileview/4.3-zipslip-rce (MIT). Immagine pinnata, no ports, rete lab internal.
+name: kalithos-dojo-kkfileview-4-3-zipslip-rce
+
+services:
+  web:
+    image: vulhub/kkfileview@sha256:378bf1c6ddc94f05bf7cb26f9bbf087dc49024c04fe7121d740281c9b51e40f0
+    networks: [lab]
+
+  attacker:
+    image: grpo-rt/kali-lite:latest
+    networks: [lab]
+    command: sleep infinity
+
+networks:
+  lab:
+    internal: true
