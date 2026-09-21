@@ -11,6 +11,11 @@ max_turns        = 30
 exec_timeout     = 90
 health_cmd       = "curl -sf -o /dev/null http://web/"
 
+# --- reward shaping (vocabolario oracoli standard, vedi verifier.py) ---
+# one-shot RCE (comando singolo a un GET): nessuna shell persistente -> solo flag_seen + terminale.
+[[milestone]]
+type = "flag_seen"          # la flag random compare nell'output dell'agente (reward default 0.5)
+
 [classification]
 class = "command-injection"        # raffinato a mano (i tag vulhub sono più grezzi)
 stack = "php"

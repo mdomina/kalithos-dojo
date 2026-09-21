@@ -9,6 +9,15 @@ max_turns        = 40
 exec_timeout     = 60
 health_cmd       = "curl -s -o /dev/null -w '%{http_code}' --max-time 5 http://php:80/ | grep -qE '200|30[0-9]|401|403'"
 
+# --- reward shaping (vocabolario oracoli standard, vedi verifier.py) ---
+# LFI: prima il primitivo di lettura file (canary), poi la flag vera.
+[[milestone]]
+type = "canary_read"        # legge un canary random piantato in /etc/canary (644) via LFI
+path = "/etc/canary"
+
+[[milestone]]
+type = "flag_seen"          # flag random nell'output dell'agente
+
 [classification]
 class = "file-inclusion"
 stack = "php"
