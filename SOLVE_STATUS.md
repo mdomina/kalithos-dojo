@@ -3,7 +3,7 @@
 PASS = AI con soluzione cattura la flag → ALLENABILE. FAIL = da SANARE. untested = da testare.
 Diverso dall'healthcheck (palestra): qui l'exploit RIESCE davvero. Aggiornato 2026-09-22.
 
-**Totali: ✅13 · 🔴8 · ⚪82 / 103** — solve-rate sui TESTATI: 13/21
+**Totali: ✅14 · 🔴7 · ⚪82 / 103** — solve-rate sui TESTATI: 14/21 (67%)
 
 ## arbitrary-file-read
 | target | split | solve | modello | note |
@@ -17,7 +17,7 @@ Diverso dall'healthcheck (palestra): qui l'exploit RIESCE davvero. Aggiornato 20
 |---|---|---|---|---|
 | `aj-report-cnvd-2024-15077` | train | ⚪ untested |  |  |
 | `inetutils-cve-2026-24061` | train | ⚪ untested |  |  |
-| `nacos-cve-2021-29442` | train | 🔴 FAIL | glm5.2-armata | turns=0 noop (sospetto) |
+| `nacos-cve-2021-29442` | train | ✅ PASS | glm5.2-armata | recuperato con max_tokens=6000 (era troncamento) |
 | `ofbiz-cve-2023-51467` | train | ⚪ untested |  |  |
 | `teamcity-cve-2023-42793` | held-out | ⚪ untested |  |  |
 
