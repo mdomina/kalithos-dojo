@@ -12,7 +12,11 @@ exec_timeout     = 90
 health_cmd       = "curl -sf -o /dev/null http://web/"
 
 # --- reward shaping (vocabolario oracoli standard, vedi verifier.py) ---
-# one-shot RCE (comando singolo a un GET): nessuna shell persistente -> solo flag_seen + terminale.
+# RCE uniforme: foreign_process best-effort (se l'agente apre una shell; su exploit one-shot
+# non scatta e non fa danno) + flag_seen (universale).
+[[milestone]]
+type = "foreign_process"
+
 [[milestone]]
 type = "flag_seen"          # la flag random compare nell'output dell'agente (reward default 0.5)
 
