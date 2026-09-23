@@ -77,7 +77,7 @@ Log per target in `/tmp/ob_<id>.log`.
 
 > ⚠️ `flag_user` è **ispezionato** (euristica /proc + trappola apache master=root/worker=www-data),
 > non è la conferma definitiva. Quella è il **solve-gate** (un exploit di riferimento che legge la
-> flag) — offensivo, lo esegui tu; non è parte di questa pipeline.
+> flag) — offensivo, lo esegui tu: è la **§6**.
 
 ## 4. Verificare tutto il pool
 
@@ -94,11 +94,58 @@ git add -A && git commit -m "pool: onboard <...>" && git push
 `IMPORTED.md` e `manifest.toml` sono **generati** — non modificarli a mano. `inventory.py --check`
 fallisce se sono stale (aggancialo a un pre-commit se vuoi).
 
+## 6. Certificare la solvibilità (solve-gate)
+
+`verify_all.sh` prova solo che il target **risponde** (healthcheck). Non prova che sia
+**exploitabile**: un servizio può essere su e la CVE non scattare (config sbagliata, tool mancante
+nell'attaccante, path CGI errato…). Il **solve-gate** chiude il buco: un'AI riceve **in prompt la
+soluzione di riferimento** (README Vulhub + eventuali POC `.py`) e prova a prendere code-exec e a
+**leggere la flag**. Non misura la bravura del modello (ha la soluzione in mano): se un target **non**
+si risolve nemmeno con la soluzione, è l'**ambiente** ad avere un problema, non l'agente. È qui che si
+decide cosa entra nel training set (**PASS = allenabile**).
+
+**Prerequisiti** (oltre a quelli §0):
+```bash
+export OPENROUTER_API_KEY=...        # o riga in .env: lo carica da solo (_load_dotenv)
+# kali-lite ARMATA: java + ysoserial + JNDI-Injection-Exploit + pycryptodome/pwntools/impacket
+# + redis-rogue-getshell. Se manca un tool offensivo il PASS può fallire per attrezzatura, non ambiente.
+# Rebuild: docker build -t grpo-rt/kali-lite:latest $KALITHOS_HARNESS/attacker
+```
+
+**Esecuzione** (dal dir harness — legge le soluzioni da `VULHUB_DIR`, mai dal dojo → no leakage):
+```bash
+cd "$KALITHOS_HARNESS"   # = kalithos-cybersec/recipes/grpo-rt/env
+# self-check senza key/docker: mostra soluzione trovata + milestone attese
+python3.12 solve_gate.py --selfcheck --targets thinkphp-5-rce
+# run reale (glm-5.2 = miglior rapporto solve/costo per il volume; flash NOOPa sui poc lunghi)
+python3.12 solve_gate.py --model z-ai/glm-5.2 --out runs/sg.jsonl \
+  --targets thinkphp-5-rce tomcat-cve-2017-12615 shiro-cve-2016-4437
+```
+Ogni target gira in un **project docker isolato** (`grpo-rt-sg-<i>`) e in try/except: uno che esplode
+non abbatte la campagna. `--max-tokens-llm` default **6000** (un cap basso tronca gli heredoc dei poc
+prima di chiudere ```` ```bash ```` → falso `turns=0`).
+
+**Lettura del report** (`PASS/FAIL` a schermo + JSONL con `--out`):
+- `solved=True` → **ambiente risolvibile ✅** → il target è allenabile.
+- `solved=False` → l'exploit **non** completa con la soluzione in mano → **da sanare** (vedi sotto).
+- `missing=[...]` su un target risolto → milestone **attesa** ma non scattata → **ricalibra la
+  milestone** in `target.toml` (non è un difetto del target). `foreign_process` è escluso dai
+  `missing`: è best-effort, non scatta sugli exploit one-shot (atteso).
+
+**Aggiorna il censimento** e **traccia i FAIL**:
+- `SOLVE_STATUS.md` (root dojo) — matrice per-classe ✅/🔴/🟠/⚪; è il registro durevole.
+- `FAILING_TRACES.md` (root dojo) — ultimi turni (comando→osservazione) dei FAIL, per il sanamento.
+
+**Loop di sanamento** (per ogni 🔴): apri la traccia, diagnostica (recon errato? tool mancante in
+kali-lite? path/porta sbagliati? exploit multi-step oltre `--max-turns`?), correggi la causa
+(`target.toml`, Dockerfile attaccante, o soglia turni), **ri-esegui il gate sul singolo target**,
+promuovi a ✅ in `SOLVE_STATUS.md`. `🟠 ERRO` = `up` fallito → ri-testa isolato prima di dichiararlo FAIL.
+
 ## Riassunto del flusso
 
 ```
-survey.py  ->  scrivi lista  ->  onboard_batch.sh  ->  verify_all.sh  ->  inventory.py  ->  commit
-(scegli)       (giudizio)        (meccanico+gate)      (certifica)        (indici)         (durevole)
+survey.py -> scrivi lista -> onboard_batch.sh -> verify_all.sh -> solve_gate.py -> inventory.py -> commit
+(scegli)     (giudizio)      (meccanico+gate)    (raggiungibile)  (exploitabile)  (indici)        (durevole)
 ```
 
 ## Note / trappole
