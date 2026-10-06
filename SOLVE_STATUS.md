@@ -160,5 +160,5 @@ PASS=allenabile · FAIL=da sanare · ERRO=errore ambiente (ri-testare) · untest
 | target | split | solve | note |
 |---|---|---|---|
 | `activemq-cve-2016-3088` | held-out | ⚪ untested |  |
-| `elfinder-cve-2021-32682` | train | ✅ PASS | milestone file_created KO |
-| `tomcat-cve-2017-12615` | train | ✅ PASS | milestone file_created KO |
+| `elfinder-cve-2021-32682` | train | ✅ PASS | file_created FIX 2026-10-06 (dir→files/ + oracolo ricorsivo) |
+| `tomcat-cve-2017-12615` | train | ✅ PASS | file_created FIX 2026-10-06 (dir→webapps/ROOT + oracolo ricorsivo) |
